@@ -1,0 +1,17 @@
+# 서버 포트
+server:
+  port: 20001
+---
+# 동적 적용
+spring:
+  devtools:
+    livereload:
+      enabled: true
+---
+# Static 정적 리소스 접근
+spring:
+  resources:
+    static-locations: classpath:/static/
+    add-mappings: true
+  mvc:
+    static-path-pattern: /static/**
