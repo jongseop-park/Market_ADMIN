@@ -9,6 +9,6 @@ public class TestController {
     @RequestMapping("/index")
     public String index(){
 
-        return "";
+        return "docs/index";
     }
 }
