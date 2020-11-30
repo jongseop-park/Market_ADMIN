@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.adcmarket.admin.test.mapper.TestMapper">
+    <resultMap id="menuMap" type="com.adcmarket.admin.test.domain.MenuVO" autoMapping="true">
+        <result property="seq" column="menuDepth1Seq" />
+        <result property="name" column="menuDepth1Name" />
+        <result property="link" column="menuDepth1Link" />
+        <result property="parentSeq" column="menuDepth1ParentSeq" />
+
+        <collection property="menuList" ofType="com.adcmarket.admin.test.domain.MenuVO" autoMapping="true">
+            <result property="seq" column="menuDepth2Seq" />
+            <result property="name" column="menuDepth2Name" />
+            <result property="link" column="menuDepth2Link" />
+        </collection>
+    </resultMap>
+
+    <select id="selectMenuList" resultMap="menuMap">
+        select mn1.seq as menuDepth1Seq ,
+        mn1.name as menuDepth1Name,
+        mn1.link as menuDepth1Link,
+        mn2.seq as menuDepth2Seq ,
+        mn2.name as menuDepth2Name,
+        mn2.link as menuDepth2Link
+        from menu_tbl mn1
+        left join menu_tbl mn2
+        on mn1.seq = mn2.parent
+        where mn1.parent is null
+        order by mn1.seq, mn2.seq
+    </select>
+</mapper>

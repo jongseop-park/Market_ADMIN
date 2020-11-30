@@ -1,7 +1,9 @@
-package com.adcmarket.admin.controller;
+package com.adcmarket.admin.test.controller;
 
-import com.adcmarket.admin.product.domain.CategoryVO;
-import com.adcmarket.admin.product.service.ProductService;
+import com.adcmarket.admin.management.product.domain.CategoryVO;
+import com.adcmarket.admin.management.product.service.ProductService;
+import com.adcmarket.admin.test.domain.MenuVO;
+import com.adcmarket.admin.test.service.TestService;
 import net.sf.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +19,26 @@ public class TestController {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    TestService testService;
+
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @RequestMapping("/")
-    public String index(){
+    public String index(Model model){
+        List<MenuVO> menuVOS1 = testService.selectMenuList();
+
+        for(MenuVO menuVO : menuVOS1) {
+            logger.info(String.valueOf(menuVO.getMenuList().size()));
+        }
+
+
+        logger.info("menu length : " + menuVOS1.size());
+        model.addAttribute("menu", menuVOS1);
+
         return "/admin/index";
     }
+
 
     @RequestMapping("/addProduct")
     public String addProduct(Model model) {

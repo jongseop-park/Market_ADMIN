@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,45 +31,18 @@
                     </li>
 
                     <li class='sidebar-title'>관리</li>
-                    <li class="sidebar-item  has-sub">
+                    <li class="sidebar-item  has-sub"  th:each="i : ${#numbers.sequence(0, (menu.size()-1))}">
                         <a href="#" class='sidebar-link'>
                             <i data-feather="triangle" width="20"></i>
-                            <span>상품관리</span>
+                            <span th:text="${menu.get(i).getName()}">상품관리</span>
                         </a>
                         <ul class="submenu ">
-                            <li>
-                                <a href="/addProduct">상품 등록</a>
-                            </li>
-                            <li>
-                                <a href="/static/component-badge.html">상품 목록</a>
-                            </li>
-                            <li>
-                                <a href="component-breadcrumb.html">상품분류 관리</a>
+                            <li th:each="j : ${#numbers.sequence(0, (menu.get(i).getMenuList().size()-1))}">
+                                <a th:href="@{${menu.get(i).getMenuList().get(j).getLink()}}"
+                                   th:if="${menu.get(i).getMenuList().size() > 0}"
+                                   th:text="${menu.get(i).getMenuList().get(j).getName()}">상품 등록</a>
                             </li>
                         </ul>
-                    </li>
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i data-feather="triangle" width="20"></i>
-                            <span>주문관리</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li>
-                                <a href="/addProduct">주문 목록</a>
-                            </li>
-                            <li>
-                                <a href="/addProduct">배송 관리</a>
-                            </li>
-                            <li>
-                                <a href="/addProduct">취소/환불</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i data-feather="triangle" width="20"></i>
-                            <span>고객관리</span>
-                        </a>
                     </li>
                 </ul>
             </div>
@@ -445,6 +418,8 @@
 <script src="/static/vendors/chartjs/Chart.min.js"></script>
 <script src="/static/vendors/apexcharts/apexcharts.min.js"></script>
 <script src="/static/js/pages/dashboard.js"></script>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+
 
 <script src="/static/js/main.js"></script>
 </body>
