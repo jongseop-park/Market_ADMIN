@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.adcmarket.admin.product.mapper.ProductMapper">
+
+    <insert id="insertProduct" parameterType="com.adcmarket.admin.product.domain.ProductVO">
+         insert into men_product_tbl2(seq, name, image, catecode, summary_desc, detail_desc,
+          brand, price, dis_yn, sel_yn, sub_image1, sub_image2,
+    sub_image3, sub_image4, reg_dt, mod_dt, del_yn)
+    values(MEN_PRODUCT_SEQUENCE2.nextval, #{name}, #{image}, #{cateCode}, #{summaryDesc}, #{detailDesc},
+     #{brand}, #{price}, #{displayYn}, #{sellYn}, #{subImage1} , #{subImage2},
+     #{subImage3}, #{subImage4}, sysDate, null, 'n')
+    </insert>
+
+    <select id="selectCategory" resultType="com.adcmarket.admin.product.domain.CategoryVO">
+        select level, cateName, cateCode, cateCodeRef
+        from category_tbl2
+        start with cateCodeRef is null connect by prior cateCode = cateCodeRef
+    </select>
+
+</mapper>

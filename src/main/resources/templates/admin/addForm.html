@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Voler Admin Dashboard</title>
+
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+
+    <link rel="stylesheet" href="/static/vendors/chartjs/Chart.min.css">
+
+    <link rel="stylesheet" href="/static/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/static/css/app.css">
+    <link rel="shortcut icon" href="/static/images/favicon.svg" type="image/x-icon">
+</head>
+<body>
+<div id="app">
+    <div id="sidebar" class='active'>
+        <div class="sidebar-wrapper active">
+            <div class="sidebar-header">
+                <img src="/static/images/logo.svg" alt="" srcset="">
+            </div>
+            <div class="sidebar-menu">
+                <ul class="menu">
+                    <li class='sidebar-title'>메인 메뉴</li>
+                    <li class="sidebar-item active ">
+                        <a href="index.html" class='sidebar-link'>
+                            <i data-feather="home" width="20"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+
+                    <li class='sidebar-title'>상품</li>
+                    <li class="sidebar-item  has-sub">
+                        <a href="#" class='sidebar-link'>
+                            <i data-feather="triangle" width="20"></i>
+                            <span>상품관리</span>
+                        </a>
+                        <ul class="submenu ">
+                            <li>
+                                <a href="/addProduct">상품 등록</a>
+                            </li>
+                            <li>
+                                <a href="/static/component-badge.html">상품 목록</a>
+                            </li>
+                            <li>
+                                <a href="component-breadcrumb.html">상품분류 관리</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+        </div>
+    </div>
+    <div id="main">
+        <nav class="navbar navbar-header navbar-expand navbar-light">
+            <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
+            <button class="btn navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav d-flex align-items-center navbar-light ml-auto">
+                    <li class="dropdown nav-icon">
+                        <a href="#" data-toggle="dropdown" class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
+                            <div class="d-lg-inline-block">
+                                <i data-feather="bell"></i>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-large">
+                            <h6 class='py-2 px-4'>Notifications</h6>
+                            <ul class="list-group rounded-none">
+                                <li class="list-group-item border-0 align-items-start">
+                                    <div class="avatar bg-success mr-3">
+                                        <span class="avatar-content"><i data-feather="shopping-cart"></i></span>
+                                    </div>
+                                    <div>
+                                        <h6 class='text-bold'>New Order</h6>
+                                        <p class='text-xs'>
+                                            An order made by Ahmad Saugi for product Samsung Galaxy S69
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown nav-icon mr-2">
+                        <a href="#" data-toggle="dropdown" class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
+                            <div class="d-lg-inline-block">
+                                <i data-feather="mail"></i>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#"><i data-feather="user"></i> Account</a>
+                            <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a>
+                            <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#"><i data-feather="log-out"></i> Logout</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            <div class="avatar mr-1">
+                                <img src="/static/images/avatar/avatar-s-1.png" alt="" srcset="">
+                            </div>
+                            <div class="d-none d-md-block d-lg-inline-block">Hi, Saugi</div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#"><i data-feather="user"></i> Account</a>
+                            <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a>
+                            <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#"><i data-feather="log-out"></i> Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="main-content container-fluid">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">상품 등록</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <form class="form form-vertical" method="post" action="/insert/product"
+                                    enctype="multipart/form-data" id="upload-file-form">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="productName">상품명</label>
+                                            <input type="text" id="productName" class="form-control" name="name"
+                                                   placeholder="상품명 입력" value="상품1">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="productBrand">브랜드명</label>
+                                            <input type="text" id="productBrand" class="form-control" name="brand"
+                                                   placeholder="브랜드명 입력" value="브랜드1">
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <fieldset class="form-group">
+                                            <label for> 1차 분류</label>
+                                            <select class="form-select category1">
+                                              <option value="0">분류선택</option>
+                                            </select>
+
+                                            <label for> 2차 분류</label>
+                                            <select class="form-select category2">
+                                                <option value="0">분류선택</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="productPrice">판매가</label>
+                                            <input type="text" id="productPrice" class="form-control" name="price"
+                                                   placeholder="판매가 입력" value="20000">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="summaryDesc">상품 요약설명</label>
+                                            <input type="text" id="summaryDesc" class="form-control" name="summaryDesc"
+                                                   placeholder="상품 요약설명 입력" value="요약 설명 입니다.">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group mb-3">
+                                            <label for="detailDesc" class="form-label">상품 상세설명</label>
+                                            <textarea class="form-control" id="detailDesc" rows="3"
+                                             placeholder="상품 상세설명 입력" name="detailDesc">상세 설명 입니다.</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <p>대표 이미지</p>
+                                        <div class="form-file">
+                                            <input type="file" class="form-file-input" id="rep_image" name="rep_image">
+                                            <label class="form-file-label" for="rep_image">
+                                                <span class="form-file-text">Choose file...</span>
+                                                <span class="form-file-button btn-primary "><i data-feather="upload"></i></span>
+                                            </label>
+                                        </div>
+                                        <div class="select_rep_img mt-2">
+                                            <img src="" />
+                                        </div>
+                                    </div>
+                                        <p>추가 이미지(최대 4개)</p>
+                                        <div class="form-file">
+                                            <input type="file" id="sub_image1" name="sub_image" multiple>
+                                            <label class="form-file-label" for="sub_image1">
+                                                <!--<span class="form-file-text">최대 4개 까지 첨부 가능</span>-->
+                                                <!--<span class="form-file-button">파일 선택</span>-->
+                                            </label>
+                                        </div>
+                                        <div class="select_sub_img mt-2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!--</form>-->
+                    </div>
+                </div>  <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">쇼핑몰 진열설정</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <!--<form class="form form-vertical">-->
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>진열상태</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                       name="displayYn" id="displayY" value="y">
+                                                <label class="form-check-label">
+                                                    진열함
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                       name="displayYn" id="displayN" value="n">
+                                                <label class="form-check-label">
+                                                    진열안함
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>판매상태</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="sellYn" id="sellY"
+                                                        value="y">
+                                                <label class="form-check-label" for="sellY">
+                                                    판매함
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="sellYn" id="sellN"
+                                                    value="n">
+                                                <label class="form-check-label" for="sellN">
+                                                    판매안함
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="button" id="insertBtn" class="btn btn-primary mr-1 mb-1">상품등록</button>
+<!--                                        <button type="reset" class="btn btn-light-secondary mr-1 mb-1">취소</button>-->
+                                    </div>
+                                </div>
+                            </div>
+<!--                        </form>-->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="/static/js/feather-icons/feather.min.js"></script>
+    <script src="/static/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="/static/js/app.js"></script>
+
+    <script src="/static/vendors/chartjs/Chart.min.js"></script>
+    <script src="/static/vendors/apexcharts/apexcharts.min.js"></script>
+    <script src="/static/js/pages/dashboard.js"></script>
+
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+</div>
+</body>
+</html>
+<script>
+    $('#insertBtn').on('click', function() {
+        var selectedCategory1 = $('.category1 option:selected').val();
+        var selectedCategory2 = $('.category2 option:selected').val();
+        var cateCode;
+
+        if(selectedCategory1 > 0 && selectedCategory2 > 0) {
+            cateCode = selectedCategory2;
+        } else if(selectedCategory1 > 0 && selectedCategory2 == 0) {
+            cateCode = selectedCategory1;
+        }
+
+        console.log(cateCode);
+
+        var object = {
+          name: $('#productName').val(),
+          brand: $('#productBrand').val(),
+          price: $('#productPrice').val(),
+          summaryDesc: $('#summaryDesc').val(),
+          detailDesc: $('#detailDesc').val(),
+          displayYn: $('input[name="displayYn"]:checked').val(),
+          sellYn: $('input[name="sellYn"]:checked').val(),
+          cateCode: cateCode
+    };
+
+        console.log(object);
+        //addProduct(object);
+        addProductTest();
+    });
+
+   /* function addProduct(data) {
+        $.ajax({
+            url: "/insert/product",
+            method: "POST",
+            headers: {"Content-Type": "application/json",
+                        "enctype": "multipart/form-data"},
+            data: JSON.stringify(data),
+            success: function(){
+                alert('성공');
+            },
+            error: function() {
+                alert('실패');
+            }
+        }).done(function (data) {
+            alert('정상적으로 등록되었습니다.');
+        });
+    }*/
+
+    function addProductTest()  {
+        var selectedCategory1 = $('.category1 option:selected').val();
+        var selectedCategory2 = $('.category2 option:selected').val();
+        var cateCode;
+
+        if(selectedCategory1 > 0 && selectedCategory2 > 0) {
+            cateCode = selectedCategory2;
+        } else if(selectedCategory1 > 0 && selectedCategory2 == 0) {
+            cateCode = selectedCategory1;
+        }
+
+        var form = $('#upload-file-form')[0];
+        var formData = new FormData(form);
+        formData.append("cateCode", cateCode);
+
+        if($('#sub_image1')[0].files.length > 4) {
+            alert('추가 이미지는 최대 4개까지 선택 가능합니다.');
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "/insert/product",
+            data: formData,
+            processType: false,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function(){
+                alert('성공');
+            },
+            error: function() {
+                alert('실패');
+            }
+        }).done(function (data) {
+            alert('정상적으로 등록되었습니다.');
+        });
+    }
+
+    $('#rep_image').change(function() {
+        if(this.files && this.files[0]) {
+            var reader = new FileReader;
+            reader.onload = function(data) {
+                $(".select_rep_img img").attr("src", data.target.result).width(300).height(300);
+            }
+            reader.readAsDataURL(this.files[0]);
+            console.log(this.files[0]);
+            console.log(this.files);
+        }
+    });
+/*$('#sub_image1').change(function() {
+        if(this.files && this.files[0]) {
+            var reader = new FileReader;
+            reader.onload = function(data) {
+                $(".select_sub_img1 img").attr("src", data.target.result).width(500);
+            }
+            reader.readAsDataURL(this.files[0]);
+            console.log(this.files[0]);
+            console.log(this.files);
+        }
+    });*/
+
+    // controller로부터 category 가져오기
+    var jsonData = '[[${category}]]'.replaceAll('&quot;', "\"");
+    console.log(jsonData);
+
+    // data json 으로 parse
+    jsonData = JSON.parse(jsonData);
+
+    console.log(jsonData.length);
+    console.log(jsonData[0].cateCode);
+
+    var cate1Arr = new Array();
+    var cate1Obj = new Object();
+
+    // 1차 카테고리 설정
+    for(var i=0; i< jsonData.length; i++) {
+        if(jsonData[i].level == 1) {
+            cate1Obj = new Object();
+            cate1Obj.cateCode = jsonData[i].cateCode;
+            cate1Obj.cateName = jsonData[i].cateName;
+            cate1Arr.push(cate1Obj);
+        }
+    }
+
+    var cate1Select = $("select.category1");
+
+    for(var i = 0 ; i< cate1Arr.length; i++) {
+        cate1Select.append("<option value='" + cate1Arr[i].cateCode + "'>"
+         + cate1Arr[i].cateName + "</option>");
+    }
+
+    // 2차카테고리 설정 (1차 카테고리 선택 시 )
+    $(document).on('change', 'select.category1', function() {
+        var cate2Arr = new Array();
+        var cate2Obj = new Object();
+
+        for(var i= 0; i< jsonData.length; i++) {
+            if(jsonData[i].level == "2") { // level 2인 카테고리 배열에 저장
+                cate2Obj = new Object();
+                cate2Obj.cateCode = jsonData[i].cateCode;
+                cate2Obj.cateName = jsonData[i].cateName;
+                cate2Obj.cateCodeRef = jsonData[i].cateCodeRef;
+
+                cate2Arr.push(cate2Obj);
+            }
+        }
+
+        var cate2Select = $('select.category2');
+
+        // += 되므로 제거후 다시 추가
+        cate2Select.children().remove();
+
+        $('option:selected', this).each(function() {
+            var selectVal = $(this).val(); // 선택된 옵션 값 가져옴(catecode)
+            cate2Select.append("<option value='0'>분류선택</option>");
+
+            for(var i= 0; i<cate2Arr.length; i++) {
+                if(selectVal == cate2Arr[i].cateCodeRef) {
+                    cate2Select.append("<option value='" + cate2Arr[i].cateCode + "'>"
+                     + cate2Arr[i].cateName + "</option>");
+                }
+            }
+        });
+    })
+
+    /// 추가이미지 미리보기
+
+    var sel_files = [];
+
+    $(document).ready(function() {
+        $('#sub_image1').on('change', handleImgsFilesSelect);
+    })
+
+    function handleImgsFilesSelect(e) {
+        var files = e.target.files;
+        var filesArr = Array.prototype.slice.call(files);
+
+        filesArr.forEach(function(f) {
+            if(!f.type.match("image.*")) {
+                alert("확장자는 이미지 확장자만 가능합니다.");
+                return;
+            }
+
+            sel_files.push(f);
+
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img_html = "<img src=\"" + e.target.result + "\"  width='300' height='300'/>";
+                $(".select_sub_img").append(img_html);
+            }
+            reader.readAsDataURL(f);
+        });
+    }
+
+</script>
