@@ -1,6 +1,7 @@
-package com.adcmarket.admin.product.domain;
+package com.adcmarket.admin.management.product.domain;
 
 public class ProductVO {
+    private int seq;
     private String name;
     private String brand;
     private int price;
@@ -118,5 +119,13 @@ public class ProductVO {
 
     public void setCateCode(String cateCode) {
         this.cateCode = cateCode;
+    }
+
+    public int getSeq() {
+        return seq;
+    }
+
+    public void setSeq(int seq) {
+        this.seq = seq;
     }
 }

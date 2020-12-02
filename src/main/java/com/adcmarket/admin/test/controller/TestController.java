@@ -47,6 +47,9 @@ public class TestController {
         List<CategoryVO> category = null;
         category = productService.selectCategory();
 
+        List<MenuVO> menuVOS = testService.selectMenuList();
+        model.addAttribute("menu", menuVOS);
+
         logger.info(String.valueOf(category.size()));
         JSONArray jsonArray = new JSONArray();
         model.addAttribute("category", jsonArray.fromObject(category));

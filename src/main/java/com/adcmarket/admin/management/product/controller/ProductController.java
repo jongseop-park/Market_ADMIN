@@ -1,21 +1,21 @@
-package com.adcmarket.admin.product.controller;
+package com.adcmarket.admin.management.product.controller;
 
 
-import com.adcmarket.admin.product.domain.ProductVO;
-import com.adcmarket.admin.product.service.ProductService;
+import com.adcmarket.admin.management.product.domain.Criteria;
+import com.adcmarket.admin.management.product.domain.PageMaker;
+import com.adcmarket.admin.management.product.domain.ProductVO;
+import com.adcmarket.admin.management.product.service.ProductService;
+import com.adcmarket.admin.test.domain.MenuVO;
+import com.adcmarket.admin.test.service.TestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 public class ProductController {
@@ -23,6 +23,9 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    TestService testService;
 
     @ResponseBody
     @RequestMapping(value = "/insert/product",  method = RequestMethod.POST)
@@ -38,5 +41,21 @@ public class ProductController {
             logger.info("=============================");
 
             productService.insertProduct(productVO, file, subFile);
+    }
+
+    @RequestMapping("/listProduct")
+    public String listProduct(Criteria cri, Model model) {
+        List<MenuVO> menuVOList = testService.selectMenuList();
+        model.addAttribute("menu", menuVOList);
+
+        List<ProductVO> productVOS = productService.selectProductList(cri);
+        model.addAttribute("productList", productVOS);
+
+        PageMaker pageMaker = new PageMaker();
+        pageMaker.setCri(cri);
+        pageMaker.setTotalCount(productService.countProductList());
+        model.addAttribute(pageMaker);
+
+        return "admin/productList";
     }
 }

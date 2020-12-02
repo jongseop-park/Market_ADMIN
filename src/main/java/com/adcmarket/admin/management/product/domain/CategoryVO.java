@@ -1,4 +1,4 @@
-package com.adcmarket.admin.product.domain;
+package com.adcmarket.admin.management.product.domain;
 
 public class CategoryVO {
     private String cateName;

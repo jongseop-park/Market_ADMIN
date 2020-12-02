@@ -1,9 +1,10 @@
-package com.adcmarket.admin.product.service.serviceImpl;
+package com.adcmarket.admin.management.product.service.serviceImpl;
 
-import com.adcmarket.admin.product.domain.CategoryVO;
-import com.adcmarket.admin.product.domain.ProductVO;
-import com.adcmarket.admin.product.mapper.ProductMapper;
-import com.adcmarket.admin.product.service.ProductService;
+import com.adcmarket.admin.management.product.domain.Criteria;
+import com.adcmarket.admin.management.product.domain.ProductVO;
+import com.adcmarket.admin.management.product.mapper.ProductMapper;
+import com.adcmarket.admin.management.product.service.ProductService;
+import com.adcmarket.admin.management.product.domain.CategoryVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class ProductServiceImpl implements ProductService {
     private static final String UPLOAD_PATH = "C:\\Study\\fileupload";
     private static final String UPLOAD_PROJECT_PATH = "C:\\Users\\psy\\IdeaProjects\\adcMarket\\src\\main\\resources\\static\\img\\product";
     private static final String UPLOAD_DB_PATH = "/static/img/product/";
+
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -83,5 +85,15 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return fileNames;
+    }
+
+    @Override
+    public List<ProductVO> selectProductList(Criteria criteria) {
+        return productMapper.selectProductList(criteria);
+    }
+
+    @Override
+    public int countProductList() {
+        return productMapper.countProductList();
     }
 }
